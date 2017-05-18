@@ -1,12 +1,28 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title></title>
-    </head>
-
-    <body>
-
-    </body>
-
-</html>
+{% extends 'base.html' %}
+{% block body %}
+    <h1>Trips</h1>
+    <table>
+        <thead>
+            <th>Trip</th>
+            <th>Description</th>
+            <th>Destination</th>
+            <th>Price</th>
+        </thead>
+        <tbody>
+        {% if object_list %}
+            {% for trip in object_list %}
+                <tr>
+                    <td>{{ trip.title }}</td>
+                    <td>{{ trip.description }}</td>
+                    <td>
+                    {% for destination in trip.destination.all %}
+                        <li>{{ destination.name }}</li>
+                    {% endfor %}
+                    </td>
+                    <td>{{ trip.price }}</td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+        </tbody>
+    </table>
+{% endblock %}
