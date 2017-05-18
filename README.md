@@ -2,7 +2,7 @@
 Sample project for gauging interviewee knowledge and process.
 
 ## Synopsis
-Using the Django REST framework, display a list of trips. This should take no more than 4 hours or so, but more time can be used, if necessary. **The deadline is Monday Jan. 26th by 9am.**
+Using the Django REST framework, display a list of trips. This should take no more than 4 hours or so, but more time can be used, if necessary.
 
 ## What's the end goal?
 We'd like to get a sense of your work! We're looking for well-documented code, that explains what you're doing, and more importantly, the reasoning behind it. This will help us get a better understanding of your thinking process. Frequent, and numerous commits are also encouraged, with sensible, and relevant commit messages.
