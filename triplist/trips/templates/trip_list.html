@@ -1,11 +1,16 @@
 {% extends 'base.html' %}
+{% load filters %}
 {% block body %}
     <h1>Trips</h1>
-    <table>
+    <table cellspacing="20">
         <thead>
             <th>Trip</th>
             <th>Description</th>
             <th>Destination</th>
+            <th>Activities</th>
+            <th>Transporation</th>
+            <th>Accomodation</th>
+            <th>Number of People</th>
             <th>Price</th>
         </thead>
         <tbody>
@@ -19,7 +24,51 @@
                         <li>{{ destination.name }}</li>
                     {% endfor %}
                     </td>
-                    <td>{{ trip.price }}</td>
+                    <td>
+                    {% for activity in trip.activity.all %}
+                        <li>{{ activity.name }}</li>
+                    {% endfor %}
+                    </td>
+                    <td>
+                    {% for transportation in trip.transportation.all %}
+                        <li>{{ transportation.name }}</li>
+                    {% endfor %}
+                    </td>
+                    <td>
+                    {% for accomodation in trip.accomodation.all %}
+                        <li>{{ accomodation.name }}</li>
+                    {% endfor %}
+                    </td>
+                    <td style="text-align: center;">{{ trip.max_people }}</td>
+                    <td>
+                        <b>Detail: Accomodation</b>
+                        <br>
+                        {% for accomodation in trip.accomodation.all %}
+                            <li>
+                                {{ accomodation.name }} -
+                                First {{ accomodation.max_people }} people: {{ accomodation.max_people|calc_price:accomodation.price}}
+                                + Extra people: {{ accomodation.max_people|remaining_people:trip.max_people|calc_price:accomodation.price_diff }}
+                            </li>
+                        {% endfor %}
+                        <b>Detail: Activity</b>
+                        <br>
+                        {% for activity in trip.activity.all %}
+                            <li>
+                                {{ activity.name }} -
+                                First {{ activity.max_people }} people: {{ activity.max_people|calc_price:activity.price}}
+                                + Extra people: {{ activity.max_people|remaining_people:trip.max_people|calc_price:activity.price_diff }}
+                            </li>
+                        {% endfor %}
+                        <b>Detail: Transportation</b>
+                        <br>
+                        {% for transportation in trip.transportation.all %}
+                            <li>
+                                {{ transportation.name }} -
+                                First {{ transportation.max_people }} people: {{ transportation.max_people|calc_price:transportation.price}}
+                                + Extra people: {{ transportation.max_people|remaining_people:trip.max_people|calc_price:transportation.price_diff }}
+                            </li>
+                        {% endfor %}
+                    </td>
                 </tr>
             {% endfor %}
         {% endif %}
