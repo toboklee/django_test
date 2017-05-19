@@ -20,6 +20,37 @@ class City(models.Model):
         return ' - '.join([self.name, self.country.name,])
 
 
+class Transportation(models.Model):
+    name = models.CharField(max_length=100, null=False)
+    price = models.CharField(max_length=100, null=False)
+    type = models.CharField(max_length=50, null=False)
+
+    def __str__(self):
+        return ' - '.join([self.name, self.type,])
+
+
+class Accomodation(models.Model):
+    name = models.CharField(max_length=100, null=False)
+    address = models.CharField(max_length=100, null=False)
+    city = models.ForeignKey(City, related_name='accomodation.city')
+    country = models.ForeignKey(Country, related_name='accomodation.country')
+    price = models.CharField(max_length=100, null=False)
+    type = models.CharField(max_length=50, null=False)
+
+    def __str__(self):
+        return ' - '.join([self.name, self.type, self.city.name,])
+
+
+class Activity(models.Model):
+    name = models.CharField(max_length=100, null=False)
+    price = models.CharField(max_length=100, null=False)
+    city = models.ForeignKey(City, related_name='activity.city')
+    country = models.ForeignKey(Country, related_name='activity.country')
+
+    def __str__(self):
+        return ' - '.join([self.name, self.price,])
+
+
 class Trip(models.Model):
     title = models.CharField(max_length=100, null=False)
     description = models.CharField(max_length=500, null=False)
